@@ -1,0 +1,52 @@
+
+{% extends 'base.html' %}
+ 
+ 
+ 
+{% block title %} Employee {% endblock %}
+ 
+ 
+ 
+{% block body %}
+ 
+<div class="jumbotron jumbotron-fluid p-3" style="background-color: #333333">
+
+ <div class="signout2" >
+     <a href="/signout/" class="signout3">  <div style="display: inline-block ; float:right"><i class="fas fa-sign-out-alt icon7"></i></div>
+ <p class="signout1"> Sign out</p></a>
+
+ </div>
+ 
+ <ul id="navbar">
+    <div style="display: inline-block; float: left"><i class="fas fa-user-circle icon6"></i></div>
+ <p class="username" > {{ user_name }}</p>
+     <li><a href="/employee" style="font-size: 20px;">Home</a>
+     {% if type == 'et' %}
+     <li><a href="/employee/help" style="font-size: 20px;">Helps</a>
+     {% endif %}
+
+    {% if type != 'et' %}
+    <li><a href="/employee/edit_project" style="font-size: 20px;">Projects</a>
+    {% endif %}
+
+     <li><a href="/employee/statistics" style="font-size: 20px;">Statistics</a>
+    <li><a href="/employee/edit_invoices" style="font-size: 20px;">Invoices</a>
+      <ul>
+        <li><a href="/employee/paidInvoices">Paid Invoices</a></li>
+        <li><a href="/employee/unpaidInvoices">Unpaid Invoices</a></li>
+      </ul>
+     <li><a href="/employee/edit_speed" style="font-size: 20px;">Speeds</a></li>
+    </li>
+
+
+
+
+    </li>
+
+    
+  
+  </ul>
+</div>
+
+ 
+{% endblock %}

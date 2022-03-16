@@ -1,0 +1,37 @@
+
+
+section {
+  padding: 50px;
+  background-color: #333;
+
+}
+
+section p{
+  font-size: 1.2em;
+  color: aliceblue;
+}
+
+::-webkit-scrollbar{
+  width: 0;
+}
+
+#scrollPath{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 10;
+} 
+
+#progressbar{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  z-index: 10;
+  background: linear-gradient(to top, #8a2246 , #c03465);
+  animation: animate 5s linear infinite;
+} 

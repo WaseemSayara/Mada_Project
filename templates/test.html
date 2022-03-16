@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+
+ <div class="container" style="max-width: 1250px">
+    <div class="row" >
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <h2>Manage <b>Customers </b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add New Customer</button> </h2>
+
+                <input type="text" class="form-control" id = "livebox">
+
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+
+                         </div>
+
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>SERIAL_ID</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Internet speed</th>
+                        <th>Category</th>
+                        <th>Duration</th>
+                        <th>Address</th>
+                        <th>Branch no.</th>
+                    </tr>
+
+                   {#  ---------------------------  #}
+
+                <tr id = "datalist"></tr>
+
+
+
+                  <!-- Modal Edit Employee -->
+
+                    {#  ---------------------------  #}
+                </table>
+            </div>
+
+
+                   <!-- Modal Add Employee -->
+
+
+ <div id="mymodal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+
+         <div class="modal-header">
+            <h4 class="modal-title">Add Employee</h4>
+             <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                 <span aria-hidden="true">x</span>
+             </button>
+         </div>
+
+         <div class="modal-body">
+
+            <form action="{{url_for('insert')}}" method="POST" id="add">
+
+                <div class="form-group">
+                  <label>ID:</label>
+                  <input type="text" class="form-control" name="id_" required="1">
+               </div>
+
+
+                <div class="form-group">
+                  <label>Name:</label>
+                  <input type="text" class="form-control" name="name" required="1">
+               </div>
+
+               <div class="form-group">
+                  <label>Phone:</label>
+                  <input type="text" class="form-control" name="phone" required="1">
+               </div>
+
+               <div class="form-group">
+                  <label>Speed:</label>
+{#                  <input type="text" class="form-control" name="speed" required="1">#}
+                   <select name="speed" id="speed" class="form-control" >
+                         <option value="2">2</option>
+                         <option value="4">4</option>
+                         <option value="8">8</option>
+                         <option value="16">16</option>
+                         <option value="32">32</option>
+                     </select>
+               </div>
+
+               <div class="form-group">
+                  <label>Category:</label>
+{#                  <input type="text" class="form-control" name="category" required="1">#}
+                   <select name="category" id="category" class="form-control" >
+                         <option value="Bronze">Bronze</option>
+                         <option value="Silver">Silver</option>
+                         <option value="Gold">Gold</option>
+                         <option value="Platinum">Platinum</option>
+                     </select>
+               </div>
+
+               <div class="form-group">
+                  <label>Duration:</label>
+                  <input type="text" class="form-control" name="duration" required="1">
+               </div>
+
+               <div class="form-group">
+                  <label>Address:</label>
+                  <input type="text" class="form-control" name="address" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Branch:</label>
+{#                  <input type="text" class="form-control" name="branch" required="1">#}
+                    <select name="branch" id="branch" class="form-control" >
+                        {% for branch in branches %}
+                            <option value="{{ branch[0] }}"> {{ branch[0] }} ( {{ branch[1] }} )</option>
+                        {% endfor %}
+                     </select>
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Add Customer</button>
+               </div>
+
+            </form>
+
+         </div>
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#livebox").on("input",function(e){
+            $("#datalist").empty();
+            $.ajax({
+                method:"post",
+                url:"/livesearch",
+                data:{text:$("#livebox").val()},
+                success:function(res){
+                    var data = "";
+                    $.each(res,function(index,value){
+
+                        data += '' +
+                            '                        <td>'+value.serial_id +'</td>' +
+                            '                        <td>'+ value.customer_name +'</td>' +
+                            '                        <td>'+ value.category+'</td>' +
+                            '                     ';
+
+                    });
+
+                    $("#datalist").html(data);
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

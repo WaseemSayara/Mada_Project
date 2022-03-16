@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="view_1" content="width-device-width,initial-scale-1.0">
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">#}
+    <link rel="stylesheet" href= "{{ url_for('static', filename='signUp.css') }}">
+
+
+    <title>Sign Up Form</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="left">
+        </div>
+    </div> 
+        <div class="right">
+            <form action="{{ url_for('signup') }}" method="POST">
+{#                {% if msg %}#}
+{#                <div class="alert alert-primary alert-dismissible fade show" role="alert">#}
+{#                <span>{{ msg }}</span>#}
+{#                <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+{#                <span aria-hidden="true">&times;</span>#}
+{#                </button>#}
+{#                </div>#}
+{#                    {% endif %}#}
+                {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+            <div class="msg">{{ msg }}</div> 
+            <div class="right-content">
+                <h1>Mada Company</h1>
+                <hr>
+               
+                <label for="firstname">First Name</label>
+                <input type="text" name="firstname" id="firstname" required>
+                
+                <label for="lastname">Last Name</label>
+                <input type="text" name="lastname" id="lastname" required>
+               
+
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required>
+                 
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="text" name="phone" id="phone" required>
+
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address" required>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+                
+                <label for="password_2">Repeat Password</label>
+                <input type="password" name="password_2" id="password_2" required>
+
+
+                <label for="">
+                    <input type="checkbox" check="checked" name="remember">Remember Me
+                 </label>
+                 
+                 <a href="{{url_for('home')}}" style="display: inline-block">"Already have an account?</a><br>
+            	 <input type="submit" class="btn" value="SignUp">
+            </div> 
+            </form>
+        </div>
+    
+</body>                     

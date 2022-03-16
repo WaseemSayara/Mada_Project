@@ -1,0 +1,128 @@
+body{
+    background-color: #fbffff ;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.wrapper{
+    background-color: white;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    height: 100%;
+    width:100%;
+}
+
+img{
+    height: 100%;
+    width: 50%;
+}
+
+h1{
+    font-size: 30px;
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color:#10113d;
+    margin-bottom: 1px;
+    font-weight: bold ;
+    
+}
+hr{
+    border: 3px solid #10113d;
+   
+}
+
+.left{
+   background-image: url("pictures/cover_signUp.jpg");
+   background-repeat: no-repeat;
+   background-position: left;
+   background-size: cover;
+   height: 100%;
+   width: 100%;
+}
+
+.right{
+    width: 40%;
+    height: 80%;
+    padding-top: 0;
+    padding-left: 130px ;
+    padding-right: 15%;
+    display: inline;
+    justify-content: left;
+    align-items: left;
+   
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"]{
+    width: 100%;
+    margin: 8px 0px;
+    padding: 0px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #051733;
+    background-color: transparent;
+    overflow-x: hidden;
+}
+
+input[type="checkbox"]{
+    cursor: pointer;
+}
+label{
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: teal;
+    margin-top: 5px ;
+}
+
+.bin-signup{
+    margin-top: 10px;
+    padding: 10px 50px;
+    border: none;
+    background-color:#051733;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    
+
+}
+
+a{
+	display: block;
+	text-align: left;
+	text-decoration: none;
+	color:#051733;
+	font-size: 0.9rem;
+    transition: .7s;
+    margin-top: 5px;
+}
+
+a:hover{
+	color: #38d39f;
+}
+
+.btn{
+    
+    margin-top: 10px;
+    padding: 10px 50px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+	background-image: linear-gradient(to right, #c5bd47, #0d153b, #520b22);
+	background-size: 200%;
+	font-family: Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: .5s;
+}
+.btn:hover{
+	background-position: right;
+}
+
+
+
+

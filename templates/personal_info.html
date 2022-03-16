@@ -1,0 +1,36 @@
+{% extends 'Customer.html' %}
+
+{% block body %}
+
+ <form method="POST">
+
+  <div class="right-content">
+    <h1 id="pi">Personal<span> Information</span></h1>
+    <hr>
+
+    <label for="firstname">First Name</label>
+    <input type="text" name="firstname" id="firstname" value="{{cust[2]}}" readonly>
+
+    <label for="lastname">Last Name</label>
+    <input type="text" name="lastname" id="lastname" value="{{cust[3]}}" readonly>
+
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" value="{{cust[1]}}" readonly>
+
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email" value="{{cust[0]}}" readonly>
+
+    <label for="phone">Phone Number</label>
+    <input type="text" name="phone" id="phone" value="{{cust[6]}}" readonly>
+
+    <label for="address">Address</label>
+    <input type="text" name="address" id="address" value="{{cust[5]}}" readonly>
+
+
+</div>
+
+</form>
+
+
+
+{% endblock %}

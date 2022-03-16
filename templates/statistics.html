@@ -1,0 +1,898 @@
+
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+    <style>
+
+    .combo12{
+        display: inline-block;
+        width: 130px;
+        height: 25px;
+        background-color: #aaaaaa;
+        color: #122233;
+        font-size: 120%;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+      body{
+      background: url("/static/pictures/white_back3.jpg") no-repeat center top/cover;
+  }
+
+    </style>
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='stat_style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css') }}" />
+
+
+    <h2 class="text-center">Projects statistics</h2>
+
+    <h1 id="hihi" style="display: none;"> 600 </h1>
+    <h1 id="num_of_customers" style="display: none;"> {{ num_of_customers }} </h1>
+    <h1 id="num_of_employees" style="display: none;"> {{ num_of_employees }} </h1>
+    <h1 id="Total_earnings" style="display: none;"> {{ Total_earnings }} </h1>
+
+    <h1 id="num_tech" style="display: none;">{{ num_of_tech }} </h1>
+    <h1 id="num_prog" style="display: none;"> {{ num_of_prog }} </h1>
+    <h1 id="num_jan" style="display: none;"> {{ num_of_jan }} </h1>
+
+    <h1 id="num_proj" style="display: none;"> {{ num_of_proj }} </h1>
+
+    <h1 id="out_num" style="display: none;"> 0 </h1>
+
+    <h1 id="dep_salary" style="display: none;"> {{ dep_salaries[0] }} </h1>
+    <h1 id="dep_salary2" style="display: none;"> {{ dep_salaries[1] }} </h1>
+
+    <h1 id="num_bronze" style="display: none;">{{ list_of_cat[0] }} </h1>
+    <h1 id="num_silver" style="display: none;"> {{ list_of_cat[1] }} </h1>
+    <h1 id="num_gold" style="display: none;"> {{ list_of_cat[2] }} </h1>
+    <h1 id="num_platinum" style="display: none;"> {{ list_of_cat[3] }} </h1>
+
+    <div class="project-counter-wrp">
+        <ul>
+
+            <li>
+                <i class="fas fa-male"></i>
+                <p id="number2" class="number">0</p>
+                <span></span>
+                <p>Number Of Customers</p>
+            </li>
+            <li>
+                <i class="fas fa-medal" style="color: #eadf32 "></i>
+                <p id="number1" class="number">{{ emp_of_the_month }}</p>
+                <span></span>
+                <p>Employee Of The Month</p>
+            </li>
+            <li>
+                <i class="fa fa-briefcase"></i>
+                <p id="number3" class="number">0</p>
+                <span></span>
+                <p>Number Of Employees</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="project-counter-wrp">
+        <ul>
+            <li>
+                <i class="fas fa-money-bill-alt" style="color:#078a07"></i>
+                <p id="number4" class="number">0</p>
+                <span></span>
+                <p>Total Earnings</p>
+            </li>
+            <li>
+                <i class="fas fa-users-cog"></i>
+                <p id="number5" class="number">{{ num_of_tech }}</p>
+                <span></span>
+                <p style="display: inline-block">Number Of </p>
+                <select name="Type" id="Type" class="combo12" >
+                         <option value="Technical">Technical</option>
+                         <option value="Programmer">Programmer</option>
+                        <option value="Janitor">Janitor</option>
+                </select>
+                <p style="display: inline-block">Employees </p>
+            </li>
+            <li>
+                <i class="fa fa-coffee" style="color: #af0707"></i>
+                <p id="number6" class="number">0</p>
+                <span></span>
+                <p>Number Of Projects</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="project-counter-wrp">
+        <ul>
+            <li>
+                <i class="fas fa-tachometer-alt"></i>
+                <p id="number8" class="number">{{ down_speed }}</p>
+                <span></span>
+                <p>Most UnPopular Speed</p>
+            </li>
+            <li>
+                <i class="far fa-gem"></i>
+                <p id="number18" class="number">{{ list_of_cat[0] }}</p>
+                <span></span>
+                <p style="display: inline-block">Number Of </p>
+                <select name="Type2" id="Type2" class="combo12" >
+                         <option value="Bronze">Bronze</option>
+                         <option value="Silver">Silver</option>
+                        <option value="Gold">Gold</option>
+                    <option value="Platinum">Platinum</option>
+                </select>
+                <p style="display: inline-block">Customers </p>
+            </li>
+            <li>
+                <i class="fas fa-tachometer-alt"></i>
+                <p id="number9" class="number">{{ top_speed }}</p>
+                <span></span>
+                <p>Most Popular Speed</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="project-counter-wrp">
+        <ul>
+
+            <li>
+                <i class="fas fa-car-alt"></i>
+                <p id="number10" class="number">{{ visits }}</p>
+                <span></span>
+                <p>Visits</p>
+            </li>
+            <li>
+                <i class="fas fa-coins"></i>
+                <p id="number11" class="number">{{ dep_salaries[0] }}</p>
+                <span></span>
+                <p style="display: inline-block">Avg Salary for Employees </p>
+                <select name="Type3" id="Type3" class="combo12" style="width: 90px" >
+                         <option value="with_dep">With</option>
+                         <option value="without_dep">Without</option>
+                </select>
+                <p style="display: inline-block">Dependents </p>
+            </li>
+            <li>
+                {% if last_number >= 0 %}
+                <i class="fas fa-chart-line" style="color: #29b62d"></i>
+                {% endif %}
+                {% if last_number < 0 %}
+                <i class="fas fa-chart-line" style="color: #b00a0a"></i>
+                {% endif %}
+
+                <p id="number12" class="number">{{ last_number }}</p>
+                <span></span>
+                <p>Profit Last Month</p>
+            </li>
+        </ul>
+    </div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<div style="width: 1150px;height: 500px; margin: 2em auto ; border: #122233 4px solid; align-self: center ">
+<figure class="highcharts-figure">
+  <div id="container"></div>
+  <p class="highcharts-description">
+  </p>
+</figure>
+</div>
+    <h3 style="color: white">.</h3>
+    <hb>
+    <hb>
+<hb>
+    <hb>
+
+    <script>
+
+    // Create the chart
+Highcharts.chart('container', {
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Company Earning In The Year. 2021'
+  },
+  accessibility: {
+    announceNewData: {
+      enabled: true
+    }
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    title: {
+      text: 'Total Earning in Month'
+    }
+
+  },
+  legend: {
+    enabled: false
+  },
+  plotOptions: {
+    series: {
+      borderWidth: 0,
+      dataLabels: {
+        enabled: true,
+        format: '{point.y:.0f}$'
+      }
+    }
+  },
+
+  tooltip: {
+    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:0.0f}$ </b> of {{ Total_earnings }}$ <br/>'
+  },
+
+  series: [
+    {
+      name: "Months",
+      colorByPoint: true,
+      data: [
+        {
+          name: "Jan",
+          y: {{ list_of_earnings[0] }},
+          drilldown: "Jan"
+        },
+        {
+          name: "Feb",
+          y: {{ list_of_earnings[1] }},
+          drilldown: "Feb"
+        },
+        {
+          name: "Mar",
+          y: {{ list_of_earnings[2] }},
+          drilldown: "Mar"
+        },
+        {
+          name: "Apr",
+          y: {{ list_of_earnings[3] }},
+          drilldown: "Apr"
+        }
+          ,
+        {
+          name: "May",
+          y: {{ list_of_earnings[4] }},
+          drilldown: "May"
+        },
+        {
+          name: "Jun",
+          y: {{ list_of_earnings[5] }},
+          drilldown: "Jun"
+        },
+        {
+          name: "Jul",
+          y:  {{ list_of_earnings[6] }},
+          drilldown: "Jul"
+        },
+        {
+          name: "Aug",
+          y:  {{ list_of_earnings[7] }},
+          drilldown: "Aug"
+        }
+        ,
+        {
+          name: "Sep",
+          y:  {{ list_of_earnings[8] }},
+          drilldown: "Sep"
+        }
+        ,
+        {
+          name: "Oct",
+          y: {{ list_of_earnings[9] }},
+          drilldown: "Oct"
+        }
+                ,
+        {
+          name: "Nov",
+          y: {{ list_of_earnings[10] }},
+          drilldown: "Nov"
+        }
+                ,
+        {
+          name: "Dec",
+          y: {{ list_of_earnings[11] }},
+          drilldown: "Dec"
+        }
+      ]
+    }
+  ],
+     drilldown: {
+        series: [
+            {
+                name: "Jan",
+                id: "Jan",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[0][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[0][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[0][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[0][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[0][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Feb",
+                id: "Feb",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[1][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[1][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[1][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[1][3] }}
+                    ]
+                ]
+            },
+            {
+                name: "Mar",
+                id: "Mar",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[2][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[2][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[2][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[2][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[2][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Apr",
+                id: "Apr",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[3][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[3][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[3][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[3][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[3][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "May",
+                id: "May",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[4][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[4][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[4][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[4][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[4][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Jun",
+                id: "Jun",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[5][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[5][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[5][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[5][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[5][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Jul",
+                id: "Jul",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[6][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[6][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[6][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[6][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[6][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Aug",
+                id: "Aug",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[7][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[7][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[7][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[7][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[7][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Sep",
+                id: "Sep",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[8][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[8][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[8][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[8][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[8][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Oct",
+                id: "Oct",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[9][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[9][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[9][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[9][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[9][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Nov",
+                id: "Nov",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[10][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[10][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[10][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[10][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[10][4] }}
+                    ]
+                ]
+            },
+            {
+                name: "Dec",
+                id: "Dec",
+                data: [
+                    [
+                        "Week 1",
+                        {{ list_of_weeks[11][0] }}
+                    ],
+                    [
+                        "Week 2",
+                        {{ list_of_weeks[11][1] }}
+                    ],
+                    [
+                        "Week 3",
+                        {{ list_of_weeks[11][2] }}
+                    ],
+                    [
+                       "Week 4",
+                        {{ list_of_weeks[11][3] }}
+                    ],
+                    [
+                       "Week 5",
+                        {{ list_of_weeks[11][4] }}
+                    ]
+                ]
+            }
+        ]
+    }
+
+});
+
+
+    </script>
+
+
+
+    <script>
+
+        let num_of_customers = document.getElementById("num_of_customers").innerHTML;
+        console.log(num_of_customers);
+
+        let num_of_employees = document.getElementById("num_of_employees").innerHTML;
+        console.log(num_of_employees);
+
+        let Total_earnings = document.getElementById("Total_earnings").innerHTML;
+        console.log(Total_earnings);
+
+         let num_projects = document.getElementById("num_proj").innerHTML;
+        console.log(num_projects);
+
+         let dep_salary = document.getElementById("dep_salary").innerHTML;
+         console.log("hi")
+        console.log(dep_salary);
+
+        var clients = setInterval(happyClients, 100)
+        var coffee = setInterval(cupsCoffee, 300)
+        var earnings = setInterval(earningsTotal, 1)
+        var projects = setInterval(projectsTotal, 300)
+        var depSalary1 = setInterval(depSalary, 5)
+
+        let count1 = -1;
+        let count2 = -1;
+        let count3 = -1
+        let count5 = -1;
+        let count7 = -5;
+
+        let a1 = Math.floor(Total_earnings / 1000 );
+        console.log(a1)
+        let a2 = Total_earnings % 1000;
+        console.log(a2)
+
+        let count4 = a2;
+
+        function happyClients() {
+            count2++
+            document.querySelector("#number2").innerHTML = count2
+            if (count2 == num_of_customers) {
+                clearInterval(clients)
+            }
+        }
+
+        function cupsCoffee() {
+            count3++
+            document.querySelector("#number3").innerHTML = count3
+            if (count3 == num_of_employees) {
+                clearInterval(coffee)
+            }
+        }
+
+         function earningsTotal() {
+            count4+=a1
+            document.querySelector("#number4").innerHTML = count4
+            if (count4 == Total_earnings) {
+                clearInterval(earnings)
+            }
+        }
+
+        function projectsTotal() {
+            count5+=1
+            document.querySelector("#number6").innerHTML = count5
+            if (count5 == num_projects) {
+                clearInterval(projects)
+            }
+        }
+
+        function depSalary() {
+            count7+=5
+            document.querySelector("#number7").innerHTML = count7
+            if (count7 == dep_salary) {
+                clearInterval(depSalary1)
+            }
+        }
+
+        $(document).ready(function(){
+        $("#Type").on("input",function(e){
+            console.log("anas");
+            $("#type_employee").empty();
+            var Type1 = $("#Type").val();
+            let num2 = 0;
+            console.log(num2);
+
+
+            if (Type1 == "Technical"){
+                console.log("techhhhh");
+
+                let type_num1 = document.getElementById("num_tech").innerHTML;
+                console.log(type_num1);
+                var type13 = setInterval(typeCounter, 200)
+                let count6 = -1;
+                function typeCounter() {
+                count6++
+                    console.log(count6)
+                document.querySelector("#number5").innerHTML = count6
+                if (count6 == type_num1) {
+                clearInterval(type13)
+                }
+                }
+            }
+
+
+            else if (Type1 == "Programmer"){
+                 let type_num2 = document.getElementById("num_prog").innerHTML;
+                console.log(type_num2);
+                var type14 = setInterval(typeCounter, 200)
+                let count6 = -1;
+                function typeCounter() {
+                count6++
+                    console.log(count6)
+                document.querySelector("#number5").innerHTML = count6
+                if (count6 == type_num2) {
+                clearInterval(type14)
+                }
+                }
+
+            }
+
+            else if (Type1 == "Janitor"){
+                 let type_num3 = document.getElementById("num_jan").innerHTML;
+                console.log(type_num3);
+                var type14 = setInterval(typeCounter, 200)
+                let count6 = -1;
+                function typeCounter() {
+                count6++
+                    console.log(count6)
+                document.querySelector("#number5").innerHTML = count6
+                if (count6 == type_num3) {
+                clearInterval(type14)
+                }
+                }
+
+            }
+
+
+        });
+    });
+
+
+                $(document).ready(function(){
+        $("#Type2").on("input",function(e){
+            console.log("anas22");
+            $("#type_employee").empty();
+            var Type2 = $("#Type2").val();
+            let num3 = 0;
+            console.log(num3);
+
+
+            if (Type2 == "Bronze"){
+                console.log("bron");
+
+                let type_num2 = document.getElementById("num_bronze").innerHTML;
+                console.log(type_num2);
+                var type20 = setInterval(typeCounter, 100)
+                let count100 = -1;
+                function typeCounter() {
+                count100++
+                    console.log(count100)
+                document.querySelector("#number18").innerHTML = count100
+                if (count100 == type_num2) {
+                clearInterval(type20)
+                }
+                }
+            }
+
+
+            else if (Type2 == "Silver"){
+                console.log("sil");
+
+                let type_num3 = document.getElementById("num_silver").innerHTML;
+                console.log(type_num3);
+                var type21 = setInterval(typeCounter, 100)
+                let count101 = -1;
+                function typeCounter() {
+                count101++
+                    console.log(count101)
+                document.querySelector("#number18").innerHTML = count101
+                if (count101 == type_num3) {
+                clearInterval(type21)
+                }
+                }
+            }
+
+            else if (Type2 == "Gold"){
+                console.log("gol");
+
+                let type_num3 = document.getElementById("num_gold").innerHTML;
+                console.log(type_num3);
+                var type21 = setInterval(typeCounter, 100)
+                let count101 = -1;
+                function typeCounter() {
+                count101++
+                    console.log(count101)
+                document.querySelector("#number18").innerHTML = count101
+                if (count101 == type_num3) {
+                clearInterval(type21)
+                }
+                }
+            }
+
+            else if (Type2 == "Platinum"){
+                console.log("sil");
+
+                let type_num3 = document.getElementById("num_platinum").innerHTML;
+                console.log(type_num3);
+                var type21 = setInterval(typeCounter, 200)
+                let count101 = -1;
+                function typeCounter() {
+                count101++
+                    console.log(count101)
+                document.querySelector("#number18").innerHTML = count101
+                if (count101 == type_num3) {
+                clearInterval(type21)
+                }
+                }
+            }
+
+
+        });
+    });
+
+                $(document).ready(function(){
+        $("#Type3").on("input",function(e){
+            console.log("anas22");
+            {#$("#type_employee").empty();#}
+            var Type3 = $("#Type3").val();
+            let num3 = 0;
+            console.log(num3);
+
+
+            if (Type3 == "with_dep"){
+                console.log("withhh");
+
+                let type_num2 = document.getElementById("dep_salary").innerHTML;
+                console.log(type_num2);
+                var type20 = setInterval(typeCounter, 1)
+                let count100 = -5;
+                function typeCounter() {
+                count100+=5
+                    console.log(count100)
+                document.querySelector("#number11").innerHTML = count100
+                if (count100 == type_num2) {
+                clearInterval(type20)
+                }
+                }
+            }
+
+
+            else if (Type3 == "without_dep"){
+                console.log("sil");
+
+                let type_num3 = document.getElementById("dep_salary2").innerHTML;
+                console.log(type_num3);
+                var type21 = setInterval(typeCounter, 1)
+                let count101 = -5;
+                function typeCounter() {
+                count101+=5
+                    console.log(count101)
+                document.querySelector("#number11").innerHTML = count101
+                if (count101 == type_num3) {
+                clearInterval(type21)
+                }
+                }
+            }
+        });
+    });
+
+    </script>
+
+{% endblock %}

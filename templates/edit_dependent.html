@@ -1,0 +1,57 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+             {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+
+                         </div>
+
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+
+  <div class="row">
+    <div class="col-md-4 offset-md-4" >
+      <div class="card card-body" style="width: 500px; left: -70px">
+        <form action="/admin/Depentents/update/{{dependent[0][0]}}" method="POST">
+
+          <div class="form-group">
+              <label style="display: inline">Dependent ID:</label>
+            <input type="text" name="Dependents_ID" value="{{dependent[0][0]}}" class="form-control" readonly>
+          </div>
+
+          <div class="form-group">
+              <label style="display: inline">Name:</label>
+            <input type="text" name="Name" value="{{dependent[0][1]}}" class="form-control" >
+          </div>
+
+          <div class="form-group">
+              <label style="display: inline">Age:</label>
+            <input type="date" name="dob" value="{{dependent[0][2]}}" class="form-control">
+          </div>
+
+          <div class="form-group">
+              <label style="display: inline">Employee ID:</label>
+            <input type="text" name="Employee_ID" value="{{dependent[0][3]}}" class="form-control" readonly>
+            <input type="hidden"  name="Employee_ID" value="{{dependent[0][3]}}" readonly>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" style="background-color:#138496">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

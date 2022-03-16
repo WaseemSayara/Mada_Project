@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Mada Al Arab</title>
+{#  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"#}
+{#    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />#}
+{#  <link rel="stylesheet" href="style.css" /#}
+{#  <link rel="stylesheet" href="style2.css" />#}
+{#  <link rel="stylesheet" href="style3.css" />#}
+{#  <link rel="stylesheet" href="body1.css" />#}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='style2.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='style3.css') }}" />
+  <link rel="stylesheet" type="text/CSS" href="{{ url_for('static',filename='body1.css') }}" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <style>
+    .content {
+      width: 94%;
+      margin: 4em auto;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: justify;
+    }
+
+    .logo {
+      position: fixed;
+      float: left;
+      margin: 0;
+      color: #fff;
+
+    }
+
+    .mada1 {
+      width: 90px;
+      height: 92px;
+      padding: 5px;
+      padding-left: 5px;
+      padding-right: 5px;
+      padding-bottom: 10px;
+    }
+
+    nav {
+      z-index: 3;
+      position: fixed;
+      width: 100%;
+      line-height: 60px;
+      background: none;
+      transition: 1.5s;
+      
+    }
+
+    nav ul {
+      line-height: 60px;
+      list-style: none;
+      background: rgba(0, 0, 0, 0);
+      overflow: hidden;
+      color: #fff;
+      padding: 0;
+      text-align: right;
+      margin: 0;
+      padding-right: 40px;
+    }
+
+     nav.black  {
+      background: rgba(20,35,51,1);
+    }
+     nav.black1  {
+      background: rgba(20,35,51,1);
+      /* background: linear-gradient(90deg, rgba(94,22,47,1) 0%, rgba(20,35,51,1) 10%, rgba(20,35,51,1) 100%); */
+    } 
+
+    /* .logoblack {
+      background: linear-gradient(90deg, rgba(94,22,47,1) 0%, rgba(20,35,51,1) 100%);
+    }
+    .logoblack1 {
+      background: linear-gradient(90deg, rgba(94,22,47,1) 0%, rgba(20,35,51,1) 100%);
+    } */
+
+    nav ul li {
+      display: inline-block;
+      padding: 16px 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      display: inline;
+      padding:15px;
+      border-radius: 10px;
+    }
+
+    nav ul li a:hover {
+      text-shadow: 1px 1px 5px white,-1px -1px 5px white ;
+    }
+
+    .menu-icon {
+      line-height: 60px;
+      width: 100%;
+      background: #000;
+      text-align: right;
+      box-sizing: border-box;
+      padding: 15px 24px;
+      cursor: pointer;
+      color: #fff;
+      display: none;
+    }
+
+    @media(max-width: 786px) {
+
+      .logo {
+        position: fixed;
+        top: 0;
+        margin-top: 16px;
+      }
+
+      nav ul {
+        max-height: 0px;
+        background: #000;
+      }
+
+      nav.black ul {
+        background: #000;
+        border-bottom: 1px solid black;
+      }
+
+      .showing {
+        max-height: 34em;
+      }
+
+      nav ul li {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="progressbar"></div>
+  <div id="scrollPath"></div>
+  
+  <div class="wrapper">
+    <header>
+      <nav>
+        <div class="menu-icon">
+          <i class="fa fa-bars fa-2x"></i>
+        </div>
+        <div class="logo">
+          <div class="madaback">
+            <img src="static/pictures/logo22.png" rel="mada logo" class="mada1">
+          </div>
+        </div>
+        <div class="menu" style="float:left; margin-left: 90px;">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#about_body">About</a></li>
+            <li><a href="#contact_footer">Contact</a></li>
+
+          </ul>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="/signup">sign up</a></li>
+            <li id="signin1"><a href="#">sign in</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  </div>
+
+  <div class="signin2"> 
+    <h2 > sign in </h2>
+    <br>
+       {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <form action="." target="" method="post">
+      <input class="input_login" type="text" name="username_login"  placeholder=" ENTER USERNAME " required autocomplete="on">
+      <input class="input_login pass1" type="password" name="password_login" placeholder=" ENTER PASSWORD ">
+      <input class="button1" type="submit" value="login">
+      </form>
+      <p>Don't have an account? </p>
+      <a style="color: rgb(255, 111, 111)" href="{{url_for('signup')}}">Sign up</a>
+
+
+  </div>
+
+  <div class="slider">
+    <div class="slide current">
+      <div class="content">
+        <h1>Mada Router</h1>
+        <p>
+          The fastest, easiest and smartest,Ease of operation,Self-diagnose problems,High security and protection.
+        </p>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="content">
+        <h1>Mada Tv</h1>
+        <p>
+          Enjoy many diverse applications and live a unique experience with home TV via the Internet that
+          directly connects you to a huge number of the latest movies and series.
+        </p>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="content">
+        <h1>Technical Support</h1>
+        <p>
+          number of the latest movies and series.
+Fast assist in resolving technical issues concerning customer's accounts or company software
+          infrastructure.
+
+        </p>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="content">
+        <h1>Mada Fiber</h1>
+        <p>
+          Fiber-optic internet is a complex technology that allows the
+          transmission of information in the form of light rather than electricity.
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <div class="buttons">
+    <button id="prev"><i class="fas fa-arrow-left"></i></button>
+    <button id="next"><i class="fas fa-arrow-right"></i></button>
+  </div>
+
+</div>
+<div class="wb">
+ <div class="web_body">
+   <div class="block1">
+     <div class="block1-img1"></div>
+       <div class="block1-text1">
+          <span class="ts1">Report a problem</span>
+          <h1>Technical Support</h1>
+             {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+          <p>We believe that the best way to satisfy our customers is to provide technical support services that meet their expectations.</p>
+       </div>
+   </div>
+   <div class="block2">
+     <div class="block2-img2"></div>
+       <div class="block2-text2">
+          <span class="ts2">View gifts and offers</span>
+          <h1>Offers</h1>
+          <p>Various offers and campaigns with high speeds and packages to meet the tastes of all Mada's customers.</p>
+       </div>
+   </div>
+   <div class="block3">
+     <div class="block3-img3"></div>
+       <div class="block3-text3">
+          <span class="ts3">View all agent</span>
+          <h1>Our agent</h1>
+          <p>We have many points of sale and payment that are spread all over Palestine.</p>
+       </div>
+   </div>
+ </div>
+
+ <div class="web_body2">
+  <div class="box">
+   <div class="content">
+     <div class="c_body">
+       <div class="_img">
+       <img src="static/pictures/aim.jpg" style="max-width: 100%;  height: 33vh; border-radius: 4px;">
+       </div>
+     <div class="_text">
+     <h1 style="color: rgb(0, 0, 0);  font-size: 25px;">Our Aim</h1>
+     <p style="color: rgb(0, 0, 0); font-size: 17px;">Leading the movement of change in the world of communications and information technology in Palestine.</p>
+    </div> 
+   </div> 
+   </div>
+      
+  </div>
+  <div class="ov">
+     <h1 style="color: rgb(77, 16, 16);padding:10px ;font-size: 40px;font-weight:bold; font-family:'Comic Sans MS',ursive, sans-serif;">Our vision</h1>
+     <p  style="color: black; font-size: 17px;width: 450px;height:300px ; font-family:'Comic Sans MS',ursive, sans-serif;">For Mada to remain in the lead of telecommunications companies in Palestine through the quality services they provide that keep pace with the development in the world of communications and information technology, and to reunite Palestine through an advanced and interconnected communications network, and modern innovative services.</p>
+   </div>
+ </div>
+
+ <div class="web_body3">
+   <div class="content_2">
+     <div class="box_2">
+       <div class="img_1">
+         <div class="c">
+         </div>
+       </div>
+        <div class="img_2">
+           
+           <div class="c">
+ 
+           </div>
+           <div class="c">
+ 
+           </div>
+           <div class="c">
+ 
+           </div>
+       </div>
+       <div class="img_3">
+         <div class="c">
+
+         </div>
+         <div class="c">
+
+         </div>
+         <div class="c">
+
+         </div>
+         <div class="c">
+
+         </div>
+     </div>
+     
+     <div class="img_4">
+       <div class="c">
+
+       </div>
+     </div>
+
+   </div>
+
+  </div>
+  <div class="values">
+  <h1 style="font-size: 35px; font-family:'Comic Sans MS',ursive, sans-serif;">Our values</h1>
+  <ol style="padding-left: 35px;font-size: 25px; font-family:'Comic Sans MS',ursive, sans-serif;">
+   <li>Trust.</li>
+   <li>Credibility.</li>
+   <li>Communication.</li>
+   <li>Variety.</li>
+   <li>Innovation.</li>
+ </ol>
+ </div>
+</div>
+
+<div class="web_body4" id="about_body">
+  <div class="about_us">
+    <div class="about_content">
+      <h1><span style="color: rgb(38, 26, 80) ;">About</span> Us</h1>
+      <p class="about_text">MADA is a provider of telecommunications and information technology services. The company offers fixed-line telephone services, mobile communications services, Internet access, and combined information technology and telecommunications services to customers in all over Palestine.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+  <div class="footer1" , id ="contact_footer">
+
+    <div class="logo1">
+      <img src="static\pictures\logo22.png" rel="mada logo" class="mada2">
+    </div>
+
+    <div class="ftable">
+      <div>
+        <ul class="menu2"  >
+          <li class="li1" style="margin-left: 5px;"><a href="#">Home</a></li>
+          <li class="li1"><a href="#about_body">About</a></li>
+          <li class="li1"><a href="#contact_footer">Contact</a></li>
+
+        </ul>
+      </div>
+    </div>
+
+    <p id="copyright">&copy; 2021 DataBase project
+    <p></p>
+
+    <div class="info1">
+
+      <div class="location">
+        <i class="fas fa-map-marker-alt icon1"></i>
+        <p class="text">
+          Palestine, Ramallah
+        </p>
+        </p>
+      </div>
+
+      <div class="location">
+        <i class="fas fa-phone-volume icon2"></i>
+        <p class="text">
+          1(700)-666-555
+        </p>
+        </p>
+      </div>
+
+      <div class="location">
+        <i class="fas fa-envelope icon3"></i>
+        <a class="text" style="color: rgb(255, 111, 111);" href="www.facebook.com/">
+          info@mada.ps
+        </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="about1">
+      <h3 id="head12">about mada</h3>
+      <p>MADA is a provider of telecommunications and information technology services. The company offers fixed-line telephone services.</p>
+      <div><a href="https://www.facebook.com/Mada.palestine/" target="_blank"> <i class="fab fa-facebook-square icon5" ></i> </a></div>
+      <div><a href="https://twitter.com/madaISP" target="_blank"> <i class="fab fa-twitter-square icon5"></i> </a></div>
+      <div><a href="https://www.instagram.com/mada.isp/" target="_blank"> <i class="fab fa-instagram icon5"></i> </a></div>
+      <div><a href="https://www.youtube.com/channel/UCvwh2boWgtAJrNYKfub1HNA" target="_blank"> <i class="fa fa-youtube-play icon5" aria-hidden="true"></i></a></div>
+      <div><a href="https://www.linkedin.com/company/mada-al-arab" target="_blank"> <i class="fa fa-linkedin-square icon5"></i></a></div>
+    </div>
+
+  </div>
+
+
+
+  <script src="static\main.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".menu-icon").on("click", function () {
+        $("nav ul").toggleClass("showing");
+      });
+    });
+    // Scrolling Effect        
+
+    $(document).ready(function () {
+      $("#signin1").click(function () {
+
+        $(".signin2").slideToggle("slow");
+        $('nav').toggleClass('black1');
+        $('.mada1').toggleClass('logoblack1')
+
+      });
+    });
+
+
+    $(window).on("scroll", function () {
+      if ($(window).scrollTop() > 30) {
+        $('nav').addClass("black");
+      }
+      else {
+        $('nav').removeClass("black");
+      }
+    })
+
+    let prog = document.getElementById('progressbar');
+    let totalHeight = document.body.scrollHeight - window.innerHeight;
+    window.onscroll = function(){
+      let progHeight = (window.pageYOffset / totalHeight) * 100;
+      prog.style.height = progHeight + "%";
+    }
+
+
+  </script>
+</body>
+
+</html>

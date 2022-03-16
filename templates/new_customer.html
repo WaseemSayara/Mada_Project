@@ -1,0 +1,122 @@
+{% extends 'Customer.html' %}
+
+{% block body %}
+
+    {% for price in prices %}
+    <p style="display: none" id="{{ price[0] }}">{{ price[1] }}</p>
+    {% endfor %}
+
+   <div class="modal-dialog">
+      <div class="modal-content" style="margin-top: 80px">
+
+         <div class="modal-header">
+            <h4 class="modal-title">Add Customer</h4>
+             {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+
+                         </div>
+
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+         </div>
+
+         <div class="modal-body">
+
+            <form action="{{url_for('insert2')}}" method="POST" id="add">
+
+                <div class="form-group">
+                  <label style="display: inline">ID:</label>
+                  <input type="text" class="form-control" name="id_" required="1" style="margin: 0">
+               </div>
+
+               <div class="form-group">
+                  <label style="display: inline">Speed:</label>
+{#                  <input type="text" class="form-control" name="speed" required="1">#}
+                   <select name="speed" id="speed" class="form-control" style="margin: 0" >
+                         <option value="2">2</option>
+                         <option value="4">4</option>
+                         <option value="8">8</option>
+                         <option value="16">16</option>
+                         <option value="32">32</option>
+                     </select>
+               </div>
+
+
+            <div class="form-group">
+                  <label>Duration (In Months):</label>
+                   <select name="duration" id="duration" class="form-control" >
+                         <option value="1" selected>1</option>
+                         <option value="3">3</option>
+                         <option value="6">6</option>
+                         <option value="12">12</option>
+                     </select>
+               </div>
+
+
+                <div class="form-group">
+                  <label style="display: inline">Branch:</label>
+                    <select name="branch" id="branch" class="form-control"  style="margin: 0">
+                        {% for branch in branches %}
+                            <option value="{{ branch[0] }}"> {{ branch[0] }} ( {{ branch[1] }} )</option>
+                        {% endfor %}
+                     </select>
+               </div>
+
+                <div class="form-group">
+                  <label style="display: inline">Payment:</label>
+                  <input type="text" class="form-control" name="Payment" id="Payment_field" readonly style="margin: 0">
+               </div>
+
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Add Customer</button>
+               </div>
+
+            </form>
+
+         </div>
+
+      </div>
+   </div>
+
+    <script>
+    $(document).ready(function(){
+        $("#speed").on("input",function(e){
+            $("#Payment_field").empty();
+            var speed = $("#speed").val();
+            var duration = $("#duration").val();
+
+            console.log(speed);
+            var price = document.getElementById(speed).innerHTML;
+            console.log(price);
+            var pay = price * duration;
+
+            $("#Payment_field").val(pay + '$');
+
+        });
+    });
+
+        $(document).ready(function(){
+        $("#duration").on("input",function(e){
+            $("#Payment_field").empty();
+            var speed = $("#speed").val();
+            var duration = $("#duration").val();
+
+            var price = document.getElementById(speed).innerHTML;
+            var pay = price * duration;
+
+            $("#Payment_field").val(pay+ '$');
+
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'Customer.html' %}
+
+{% block body %}
+
+ <div class="container" style="max-width: 1000px ; margin-top: 80px">
+    <div class="row" >
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <h2>Past <b>Helps </b>   </h2>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+
+                         </div>
+
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Employee name</th>
+                        <th>Employee ID</th>
+                        <th>Visit needed</th>
+                        <th>Rating</th>
+                    </tr>
+
+                   {% for row in helps %}
+                    <tr>
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>
+                            <a href="/up/{{row[0]}}" style="display: inline-block" > <i class="fas fa-long-arrow-alt-up icon8 " {% if row[5] == 'good' %}
+                    style="color: lawngreen;"
+                    {% endif %}></i> </a>
+                            <a href="/Customer/down/{{row[0]}}" style="display: inline-block"> <i class="fas fa-long-arrow-alt-down icon9 " {% if row[5] == 'bad' %}
+                    style="color: red;"
+                    {% endif %}></i> </a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                       </table>
+                       </div>
+                       </div>
+                       </div>
+                       </div>
+     <div class="container" style="max-width: 960px ; margin-top: 80px;padding: 20px; background:#e9ecef ; border-radius: 10px ">
+     <h2>Ask For <b>Help </b>   </h2>
+         <form action="{{url_for('need_help')}}" method="POST" id="need_help">
+        <div class="form-group">
+        <label for="problem" style="font-size: 110% ; font-weight: bold">Problem:</label>
+        <textarea class="form-control" rows="5" name="problem" id="problem"></textarea>
+        </div>
+         <div class="form-group">
+                  <label style="font-size: 110% ; font-weight: bold">Type:</label>
+{#                  <input type="text" class="form-control" name="speed" value="{{row[4]}}">#}
+                     <select name="type" id="type" class="form-control" >
+                         <option value="important">important</option>
+                         <option selected value="necessary">necessary</option>
+                         <option value="un_necessary">un_necessary</option>
+                     </select>
+               </div>
+             <div class="form-group">
+                  <label style="font-size: 110% ; font-weight: bold">need visit:</label>
+{#                  <input type="text" class="form-control" name="speed" value="{{row[4]}}">#}
+                     <select name="visit" id="visit" class="form-control" >
+                         <option value="YES">YES</option>
+                         <option selected value="NO">NO</option>
+                     </select>
+               </div>
+         <button type="submit"  style="border-radius: 5px;max-width: 200px; max-height: 80px ">Submit</button>
+
+    </form>
+
+
+     </div>
+{% endblock %}

@@ -1,0 +1,95 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+          {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+
+                         </div>
+
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="card card-body" style="width: 500px; left: -70px">
+        <form action="/admin/technical/update/{{employee[0][0]}}" method="POST">
+
+          <div class="form-group">
+              <label style="display: inline">Employee ID:</label>
+            <input type="text" name="emp_id" value="{{employee[0][0]}}" class="form-control" readonly>
+            <input type="hidden"  name="emp_id" value="{{employee[0][0]}}" readonly>
+          </div>
+
+          <div class="form-group">
+              <label style="display: inline">First Name:</label>
+            <input type="text" name="first_name" value="{{employee[0][1]}}" class="form-control">
+          </div>
+
+        <div class="form-group">
+              <label style="display: inline">Last Name:</label>
+            <input type="text" name="last_name" value="{{employee[0][2]}}" class="form-control">
+          </div>
+          
+          <div class="form-group">
+          <label style="display: inline">Branch:</label>
+                     <select name="branch_num" id="branch_num" class="form-control" >
+                        {% for branch in branches %}
+                            <option value="{{ branch[0] }}" {% if employee[0][3] ==  branch[0]  %}
+                             selected
+                         {% endif %}> {{ branch[0] }} ( {{ branch[1] }} )</option>
+                        {% endfor %}
+                     </select>
+               </div>
+
+          <div class="form-group">
+              <label style="display: inline">ID:</label>
+            <input type="text" name="id" value="{{employee[0][4]}}" class="form-control" readonly>
+            <input type="hidden"  name="id" value="{{employee[0][4]}}" readonly>
+          </div>
+
+          <div class="form-group">
+              <label style="display: inline">Start Date:</label>
+            <input type="date" name="s_date" value="{{employee[0][5]}}" class="form-control">
+          </div>
+
+          <div class="form-group">
+              <label style="display: inline">Salary:</label>
+            <input type="text" name="salary" value="{{employee[0][6]}}" class="form-control">
+          </div>
+
+          <div class="form-group">
+              <label style="display: inline">Number Of Holidays:</label>
+            <input type="text" name="noh" value="{{employee[0][7]}}" class="form-control">
+          </div>
+
+            <div class="form-group">
+                <label style="display: inline">Internal Number:</label>
+            <input type="text" name="internal_number" value="{{tech[1]}}" class="form-control"readonly>
+          </div>
+
+            <div class="form-group">
+                <label style="display: inline">Points:</label>
+            <input type="text" name="points" value="{{tech[2]}}" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" style="background-color:#138496">
+              Update
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+{% endblock %}

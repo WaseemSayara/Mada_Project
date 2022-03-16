@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+<style>
+
+.invoice1{
+    display: none;
+}
+
+  body{
+      background: url("/static/pictures/white_back3.jpg") no-repeat center top/cover;
+  }
+
+</style>
+
+
+<div class="container" style="max-width: 1250px ; margin-top: 90px">
+    <div class="row" >
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <h2>Edit <b>invoices </b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add New Invoice</button> </h2>
+
+                <input type="text" class="form-control" id = "livebox2" placeholder="Search by (Serial Number)" style="margin-bottom: 5px">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+
+                         </div>
+
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>Serial Number</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Issue Date</th>
+                        <th>Payment</th>
+                        <th>Internet Speed</th>
+                        <th>Serial Id</th>
+                        <th>State</th>
+
+                    </tr>
+
+                   {% for row in invoices %}
+                    <tr id="{{ row[0] }}" class="Invoice">
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>{{row[5]}}</td>
+                        <td>{{row[6]}}</td>
+                        <td>{{row[7]}}</td>
+
+                    
+                       
+                        <td>
+                            <a href="/update_invoice/{{row[0]}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row[0]}}">Edit</a>
+                            <a href="/delete_Invoice/{{row[0]}}" class="btn btn-danger btn-xs"  onclick="return confirm('Are You Sure You Want To Delete This Invoice?')">Delete</a>
+                        </td>
+
+                    </tr>
+
+                  <!-- Modal Edit Employee -->
+<div id="modaledit{{row[0]}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Update Information</h4>
+             <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                 <span aria-hidden="true">x</span>
+             </button>
+         </div>
+
+         <div class="modal-body">
+
+            <form action="{{url_for('update_invoice')}}" method="POST" id="edit">
+
+                <div class="form-group">
+                  <label>Serial_Number:</label>
+                   <input type="hidden"  name="serial_number" value="{{row[0]}}">
+                   <input type="text" class="form-control" name="Serial_id" value="{{row[0]}}" readonly>
+               </div>
+
+               <div class="form-group">
+                  <label>Start Date:</label>
+                  <input type="text" class="form-control" name="start_date" value="{{row[1]}}" readonly>
+               </div>
+
+               <div class="form-group">
+                  <label>End Date:</label>
+                  <input type="text" class="form-control" name="end_date" value="{{row[2]}}" readonly>
+               </div>
+                
+               <div class="form-group">
+                  <label>issue Date:</label>
+                  <input type="text" class="form-control" name="issue_date" value="{{row[3]}}" readonly>
+               </div>
+               <div class="form-group">
+                <label>Payment:</label>
+                <input type="text" class="form-control" name="payment" value="{{row[4]}}"> 
+                </div>
+
+                        <div class="form-group">
+                  <label>Speed:</label>
+                     <select name="speed" id="speed" class="form-control" >
+
+                         <option value="2" {% if row[5] == 2 %}
+                             selected
+                         {% endif %}>2</option>
+
+                         <option value="4" {% if row[5] == 4 %}
+                             selected
+                         {% endif %} >4</option>
+
+                         <option value="8" {% if row[5] == 8 %}
+                             selected
+                         {% endif %}>8</option>
+
+                         <option value="16" {% if row[5] == 16 %}
+                             selected
+                         {% endif %}>16</option>
+
+                         <option value="32" {% if row[5] == 32 %}
+                             selected
+                         {% endif %}>32</option>
+
+                     </select>
+               </div>
+
+               <div class="form-group">
+                <label>Serial_id:</label>
+                 <input type="hidden"  name="serial_id" value="{{row[6]}}">
+                 <input type="text" class="form-control" name="Serial_id" value="{{row[6]}}" readonly>
+             </div>
+
+                <div class="form-group">
+                    <label>State:</label>
+  {#                  <input type="text" class="form-control" name="speed" value="{{row[4]}}">#}
+                       <select name="state" id="state" class="form-control" >
+
+                            <option value="Paid" {% if row[7] == "Paid" %}
+                             selected
+                         {% endif %}>Paid</option>
+
+                         <option value="UnPaid" {% if row[7] == "UnPaid" %}
+                             selected
+                         {% endif %} >UnPaid</option>
+                       </select>
+                 </div>
+               
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+               </div>
+
+
+            </form>
+         </div>
+
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+                    {% endfor %}
+                </table>
+            </div>
+
+
+                   <!-- Modal Add Employee -->
+
+
+ <div id="mymodal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+
+         <div class="modal-header">
+            <h4 class="modal-title">Add Invoices</h4>
+             <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                 <span aria-hidden="true">x</span>
+             </button>
+         </div>
+
+         <div class="modal-body">
+
+            <form action="{{url_for('insert_invoice')}}" method="POST" id="add">
+                
+                <div class="form-group">
+                    <label>start_date:</label>
+                    <input type="date" class="form-control" name="start_date" required="1">
+                 </div>
+
+                <div class="form-group">
+                    <label>end_date:</label>
+                    <input type="date" class="form-control" name="end_date" required="1">
+                 </div>
+
+                <div class="form-group">
+                  <label>payment:</label>
+                  <input type="text" class="form-control" name="payment" required="1">
+               </div>
+                 
+
+               <div class="form-group">
+                  <label>Speed:</label>
+                   <select name="speed" id="speed" class="form-control" >
+                         <option value="2">2</option>
+                         <option value="4">4</option>
+                         <option value="8">8</option>
+                         <option value="16">16</option>
+                         <option value="32">32</option>
+
+                     </select>
+               </div>
+
+               <div class="form-group">
+                <label>serial_id:</label>
+                <input type="text" class="form-control" name="serial_id" required="1">
+             </div>
+
+               <div class="form-group">
+                <label>State:</label>
+                   <select name="state" id="state" class="form-control" >
+                       <option value="Paid">Paid</option>
+                       <option value="UnPaid">UnPaid</option>
+                   </select>
+             </div>
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Add Invoice</button>
+               </div>
+
+            </form>
+
+         </div>
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $("#livebox2").on("input",function(e){
+            $(".Invoice").addClass("invoice1")
+            $.ajax({
+                method:"post",
+                url:"/livesearch2",
+                data:{text:$("#livebox2").val()},
+                success:function(res){
+                    var data = "";
+                    $.each(res,function(index,value){
+                        console.log(index,value)
+                        $("#"+value.serial_number).removeClass("invoice1")
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+{% endblock %}  

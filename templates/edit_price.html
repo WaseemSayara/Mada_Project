@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Speed {% endblock %}
+
+{% block body %}
+
+<style>
+  body{
+      background: url("/static/pictures/white_back3.jpg") no-repeat center top/cover;
+  }
+
+</style>
+
+
+<div class="container" style="max-width: 850px ; margin-top: 90px">
+    <div class="row" >
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <h2>Edit <b>Prices</b>  
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+
+                         </div>
+
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>Speed</th>
+                        <th>Price</th>
+                        
+                        
+                    </tr>
+
+                   {% for row in speeds %}
+                    <tr>
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        
+                       
+                        <td>
+                            <a href="/update_speed/{{row[0]}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row[0]}}">Edit</a>
+                        </td>
+
+                    </tr>
+
+                  <!-- Modal Edit Employee -->
+<div id="modaledit{{row[0]}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Update Information</h4>
+             <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                 <span aria-hidden="true">x</span>
+             </button>
+         </div>
+
+         <div class="modal-body">
+
+            <form action="{{url_for('update_speed')}}" method="POST" id="edit">
+
+                <div class="form-group">
+                  <label>Speed:</label>
+                   <input type="hidden"  name="speed" value="{{row[0]}}">
+                   <input type="text" class="form-control" name="bn" value="{{row[0]}}" readonly>
+               </div>
+
+               <div class="form-group">
+                  <label>Price:</label>
+                  <input type="text" class="form-control" name="price" value="{{row[1]}}">
+               </div>
+
+               
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+               </div>
+
+
+            </form>
+         </div>
+
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+                    {% endfor %}
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}  

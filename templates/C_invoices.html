@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+<div class="container" style="max-width: 1000px ; margin-top: 90px">
+    <div class="row" >
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+            <h2><b>Invoices </b>   </h2>
+
+
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+
+                         </div>
+
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>Serial Number</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Issue Date</th>
+                        <th>Payment</th>
+                        <th>Internet Speed</th>
+                    </tr>
+
+                   {% for row in invoices %}
+                    <tr>
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>{{row[5]}}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                       </table>
+            </div>
+        </div>
+    </div>
+ </div>
+
+{% endblock %}  

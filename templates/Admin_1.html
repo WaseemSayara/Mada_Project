@@ -1,0 +1,235 @@
+
+{% extends "layout.html" %}
+
+
+{% block body %}
+<style>
+
+  .Janitor1{
+      display: none;
+  }
+
+  .Technical1{
+      display: none;
+  }
+
+  .Programmer1{
+      display: none;
+  }
+
+  .show11{
+      display: inline-block;
+  }
+
+  .Active{
+    color: #14b314;
+    font-weight: bold;
+    }
+
+.InActive{
+    color: #c90a1d;
+    font-weight: bold;
+}
+
+
+  </style>
+ <div class="row"><h3 style="font-weight: 900;"><span style="color: #138496">Add</span> Employee</h3></div>
+  <div class="row" >
+    <div class="col-md-4">
+      
+      <div class="card card-body" style="border-top-right-radius: 50px; right: 10%;">
+                      {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+                         <div class="alert alert-{{ category }} alert-dismissable" role="alert">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                 <span aria-hidden="true">x</span>
+                             </button>
+                            {{message}}
+                         </div>
+                        {% endfor %}
+                     {% endif %}
+                {% endwith %}
+        <form action="{{url_for('add_employee')}}" method="POST">
+
+          <div class="form-group" style="margin: 10px;">
+              <label style="display: inline">First Name:</label>
+          <input type="text" class="form-control" name="first_name" placeholder="Enter First_Name" required>
+          </div>
+
+        <div class="form-group" style="margin: 10px;">
+              <label style="display: inline">Last Name:</label>
+          <input type="text" class="form-control" name="last_name" placeholder="Enter Last_Name" required>
+          </div>
+
+          <div class="form-group" style="margin: 10px;">
+          <label style="display: inline">Branch:</label>
+                     <select name="branch_num" id="branch_num" style=" max-width: 290px" class="form-control" >
+                        {% for branch in branches %}
+                            <option value="{{ branch[0] }}" > {{ branch[0] }} ( {{ branch[1] }} )</option>
+                        {% endfor %}
+                     </select>
+               </div>
+
+          <div class="form-group" style="margin: 10px;">
+              <label style="display: inline">ID:</label>
+           <input type="text" class="form-control" name="id" placeholder="Enter id"  required>
+          </div>
+
+          <div class="form-group" style="margin: 10px; margin-top:5px">
+               <label style="display: inline">Start Date:</label>
+          <input type="date" class="form-control"  name="s.date"  required>
+          </div>
+
+          <div class="form-group" style="margin: 10px;">
+              <label style="display: inline">Salary:</label>
+          <input type="text" class="form-control"  name="salary" placeholder=" Enter Salary"  required>
+          </div>
+
+          <div class="form-group" style="margin: 10px;">
+              <label style="display: inline">Number Of Holidays:</label>
+          <input type="text" class="form-control" name="noh"  placeholder="Enter Number of holidays"  required>
+          </div>
+
+          <div class="form-group" style="margin: 10px">
+              <label style="display: inline">Type:</label>
+            <select name="speed" id="speed" class="form-control" >
+                  <option value="Janitor">Janitor</option>
+                  <option value="Technical">Technical</option>
+                  <option value="Programmer">Programmer</option>
+              </select>
+        </div >
+
+          <div class="form-group Janitor1 show11" style="margin: 10px">
+              <label style="display: inline">Tool:</label>
+          <input type="text" class="form-control Janitor1 show11" style="margin-bottom: 20px" id="Janitor12" name="tool" placeholder="Enter tool" required>
+          </div>
+
+          <div class="form-group Technical1" style="margin: 10px; max-width: 200px">
+              <label style="display: inline">Points:</label>
+            <input type="text" value="10" class="form-control Technical1" style="margin-bottom: 20px; margin-left: 0; max-width: 200px" id="Technical12" name="points" placeholder="Enter points" readonly>
+          </div>
+
+            <div class="form-group Programmer1" style="margin: 10px"  >
+                <label style="display: inline">Skill:</label>
+            <input type="text" class="form-control Programmer1"  id="Programmer14" name="skill" placeholder="Skill">
+          </div>
+
+            <div class="form-group Programmer1" style="max-width: 270px">
+            <label style="display: inline">Project ID:</label>
+                     <select name="Project_id" id="Programmer13" style=" width: 280px" class="form-control Programmer1"  >
+                        {% for project in projects %}
+                            <option value="{{ project[0] }}" > {{ project[0] }} ( {{ project[1] }} )</option>
+                        {% endfor %}
+                     </select>
+            </div>
+  
+          <button class="btn btn-primary btn-block" style="background-color:#138496">
+            Save 
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8" style="right: 5%;" >
+      <table id="example" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <td>Employee_ID</td>
+              <td>First Name</td>
+            <td>Last Name</td>
+            <td>Branch</td>
+            <td>ID</td>
+            <td>Start_Date<span style="color: white;">///</span></td>
+            <td>Salary</td>
+            <td>holidays</td>
+            <td>State</td>
+              <td>Active</td><span style="color: white;">////////////////////</span></td>
+            
+          </tr>
+        </thead>
+        <tbody>
+         
+          {% for data in employee %}
+          <tr>
+            <td>{{data[0]}}</td>
+            <td>{{data[1]}}</td>
+            <td>{{data[2]}}</td>
+            <td>{{data[3]}}</td>
+            <td>{{data[4]}}</td>
+            <td>{{data[5]}}</td>
+            <td>{{data[6]}}</td>
+            <td>{{data[7]}}</td>
+              <td class="{{ data[8] }}">{{data[8]}}</td>
+
+            <td width="140" style="display: inline-block">
+              <a href="/employee/edit/{{data[0]}}" class="btn btn-secondary btn-sm" >edit</a>
+
+                 {% if data[8] == "Active" %}
+                     <a href="/employee/delete/{{data[0]}}" class="btn btn-danger btn-sm" onclick="return confirm('Are You Sure You Want To DeActivate This Employee?')" >DeActivate</a>
+                 {% endif %}
+
+                 {% if data[8] == "InActive" %}
+                     <a href="/employee/activate/{{data[0]}}" class="btn btn-danger btn-sm" onclick="return confirm('Are You Sure You Want To Activate This Employee?')">Activate</a>
+                 {% endif %}
+            </td>
+
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+ 
+<script>
+  $(document).ready(function(){
+      $("#speed").on("input",function(e){
+          var speed = $("#speed").val();
+
+          if (speed === "Janitor"){
+              console.log("hiii");
+              $(".Technical1").removeClass("show11");
+              $(".Programmer1").removeClass("show11");
+              $(".Janitor1").addClass("show11");
+
+              $("#Janitor12").attr('required', '');    //turns required on
+
+              $("#Technical12").removeAttr('required');  //turns required off
+              $("#Programmer13").removeAttr('required');  //turns required off
+              $("#Programmer14").removeAttr('required');  //turns required off
+          }
+          else if (speed === "Technical"){
+              console.log("hiii");
+              $(".Janitor1").removeClass("show11");
+              $(".Programmer1").removeClass("show11");
+              $(".Technical1").addClass("show11");
+              $("#Technical12").required = true;
+              $("#Technical12").attr('required', '');    //turns required on
+
+              $("#Janitor12").removeAttr('required');  //turns required off
+              $("#Programmer13").removeAttr('required');  //turns required off
+              $("#Programmer14").removeAttr('required');  //turns required off
+          }
+
+          else if (speed === "Programmer"){
+              console.log("hiii");
+              $(".Janitor1").removeClass("show11");
+              $(".Technical1").removeClass("show11");
+              $(".Programmer1").addClass("show11");
+
+              $("#Programmer14").attr('required', '');    //turns required on
+              $("#Programmer13").attr('required', '');    //turns required on
+
+              $("#Janitor12").removeAttr('required');  //turns required off
+              $("#Technical12").removeAttr('required');  //turns required off
+              
+          }
+
+
+      });
+  });
+
+</script>>
+
+{% endblock %}
